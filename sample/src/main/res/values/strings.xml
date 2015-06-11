@@ -3,4 +3,16 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="pictures">
+        <item>http://i0.statig.com.br/bancodeimagens/3p/br/0s/3pbr0sp42opzck4ibm3xefxpv.jpg</item>
+        <item>http://cdn.breitbart.com/mediaserver/Breitbart/Big-Government/2014/Barack-and-Michelle/obama-air-horn-ap.jpg</item>
+        <item>http://hellenicinsider.com/wp-content/uploads/2015/03/angela-merkel.jpg</item>
+        <item>http://upload.wikimedia.org/wikipedia/commons/2/22/Cristinakirchnermensaje2010.jpg</item>
+        <item>http://upload.wikimedia.org/wikipedia/commons/7/79/Pepemujica2.jpg</item>
+        <item>http://i.forbesimg.com/media/lists/people/vladimir-putin_416x416.jpg</item>
+        <item>http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2012/12/14/1355497075655/Supremely-popular-Kim-Jon-011.jpg</item>
+        <item>http://dingo.care2.com/pictures/c2c/share/45/459/906/459067_370.jpg</item>
+        <item>http://www.periodistadigital.com/imagenes/2015/04/08/castro.jpg</item>
+    </string-array>
 </resources>
