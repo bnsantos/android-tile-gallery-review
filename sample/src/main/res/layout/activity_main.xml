@@ -26,20 +26,52 @@
             android:layout_width="@dimen/media_preview_size"
             android:layout_height="@dimen/media_preview_size"
             android:layout_margin="@dimen/margin"
-            custom:maxTiles="2"/>
+            custom:maxTiles="1"
+            custom:showMask="true"/>
 
         <com.bnsantos.tile.gallery.lib.GalleryTilePreview
             android:id="@+id/mediaPreview3"
             android:layout_width="@dimen/media_preview_size"
             android:layout_height="@dimen/media_preview_size"
             android:layout_margin="@dimen/margin"
-            custom:maxTiles="3"/>
+            custom:maxTiles="2"/>
 
         <com.bnsantos.tile.gallery.lib.GalleryTilePreview
             android:id="@+id/mediaPreview4"
             android:layout_width="@dimen/media_preview_size"
             android:layout_height="@dimen/media_preview_size"
             android:layout_margin="@dimen/margin"
+            custom:maxTiles="2"
+            custom:showMask="true"/>
+
+        <com.bnsantos.tile.gallery.lib.GalleryTilePreview
+            android:id="@+id/mediaPreview5"
+            android:layout_width="@dimen/media_preview_size"
+            android:layout_height="@dimen/media_preview_size"
+            android:layout_margin="@dimen/margin"
+            custom:maxTiles="3"/>
+
+        <com.bnsantos.tile.gallery.lib.GalleryTilePreview
+            android:id="@+id/mediaPreview6"
+            android:layout_width="@dimen/media_preview_size"
+            android:layout_height="@dimen/media_preview_size"
+            android:layout_margin="@dimen/margin"
+            custom:maxTiles="3"
+            custom:showMask="true"/>
+
+        <com.bnsantos.tile.gallery.lib.GalleryTilePreview
+            android:id="@+id/mediaPreview7"
+            android:layout_width="@dimen/media_preview_size"
+            android:layout_height="@dimen/media_preview_size"
+            android:layout_margin="@dimen/margin"
             custom:maxTiles="4"/>
+
+        <com.bnsantos.tile.gallery.lib.GalleryTilePreview
+            android:id="@+id/mediaPreview8"
+            android:layout_width="@dimen/media_preview_size"
+            android:layout_height="@dimen/media_preview_size"
+            android:layout_margin="@dimen/margin"
+            custom:maxTiles="4"
+            custom:showMask="true"/>
     </LinearLayout>
 </ScrollView>

@@ -7,11 +7,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.drawable.ScalingUtils;
-import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -25,14 +24,14 @@ public class GalleryTilePreview extends LinearLayout
 {
     private final int MAX_TILES = 4;
     private int mTilesNumber;
-
-    private LinearLayout mColumn1;
-    private LinearLayout mColumn2;
+    private boolean mShowMask;
 
     private SimpleDraweeView mMedia11;
     private SimpleDraweeView mMedia12;
     private SimpleDraweeView mMedia21;
     private SimpleDraweeView mMedia22;
+
+    private TextView mMask;
 
     public GalleryTilePreview(Context context) {
         super(context);
@@ -65,6 +64,7 @@ public class GalleryTilePreview extends LinearLayout
             if(mTilesNumber>MAX_TILES){
                 mTilesNumber = MAX_TILES;
             }
+            mShowMask = typedArray.getBoolean(R.styleable.GalleryTilePreview_showMask, false);
         } finally {
             typedArray.recycle();
         }
@@ -72,33 +72,49 @@ public class GalleryTilePreview extends LinearLayout
 
     private void initViews(){
         inflate(getContext(), R.layout.layout, this);
-        mColumn1 = (LinearLayout) findViewById(R.id.column1);
-        mColumn2 = (LinearLayout) findViewById(R.id.column2);
 
-        mMedia11 = (SimpleDraweeView) findViewById(R.id.media11);
-        mMedia12 = (SimpleDraweeView) findViewById(R.id.media12);
-        mMedia21 = (SimpleDraweeView) findViewById(R.id.media21);
-        mMedia22 = (SimpleDraweeView) findViewById(R.id.media22);
+        LinearLayout column2 = (LinearLayout) findViewById(R.id.column2);
+        RelativeLayout layout1 = (RelativeLayout) findViewById(R.id.layout1);
+
+        SimpleDraweeView media11 = (SimpleDraweeView) findViewById(R.id.media11);
+        SimpleDraweeView media12 = (SimpleDraweeView) findViewById(R.id.media12);
+        SimpleDraweeView media21 = (SimpleDraweeView) findViewById(R.id.media21);
+        SimpleDraweeView media22 = (SimpleDraweeView) findViewById(R.id.media22);
+
+        TextView mask1 = (TextView) findViewById(R.id.mask1);
+        mask1.setVisibility(GONE);
+        TextView mask2 = (TextView) findViewById(R.id.mask2);
+        mask2.setVisibility(GONE);
 
         switch (mTilesNumber){
             case 1:
-                mMedia12.setVisibility(GONE);
-                mMedia21.setVisibility(GONE);
-                mMedia22.setVisibility(GONE);
-                mColumn2.setVisibility(GONE);
+                media11.setVisibility(GONE);
+                layout1.setVisibility(VISIBLE);
+                column2.setVisibility(GONE);
+                mMedia11 = media21;
+                mMask = mask1;
                 break;
             case 2:
-                mMedia21.setVisibility(GONE);
-                mMedia22.setVisibility(GONE);
+                layout1.setVisibility(GONE);
+                mMedia11 = media11;
+                mMedia12 = media22;
+
+                media12.setVisibility(GONE);
+                mMask = mask2;
                 break;
             case 3:
-                mMedia21.setVisibility(GONE);
+                layout1.setVisibility(GONE);
+                mMedia11 = media11;
+                mMedia12 = media12;
+                mMedia22 = media22;
+                mMask = mask2;
                 break;
             default:
-                mMedia12.setVisibility(VISIBLE);
-                mMedia21.setVisibility(VISIBLE);
-                mMedia22.setVisibility(VISIBLE);
-                mColumn2.setVisibility(VISIBLE);
+                mMedia11 = media11;
+                mMedia12 = media12;
+                mMedia21 = media21;
+                mMedia22 = media22;
+                mMask = mask2;
         }
     }
 
@@ -109,7 +125,7 @@ public class GalleryTilePreview extends LinearLayout
 
     public void loadFromUri(List<Uri> files){
         if(files==null||files.size()<mTilesNumber){
-            //TODO
+            //TODO throw exception
             return;
         }
         setDraweePicture(mMedia11, files.get(0));
@@ -126,6 +142,11 @@ public class GalleryTilePreview extends LinearLayout
                 setDraweePicture(mMedia21, files.get(2));
                 setDraweePicture(mMedia22, files.get(3));
                 break;
+        }
+
+        if(mShowMask&&files.size()>mTilesNumber){
+            mMask.setVisibility(VISIBLE);
+            mMask.setText("+" + (files.size() - mTilesNumber));
         }
     }
 

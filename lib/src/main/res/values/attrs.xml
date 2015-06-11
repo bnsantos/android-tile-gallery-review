@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="GalleryTilePreview">
         <attr name="maxTiles" format="integer"/>
+        <attr name="showMask" format="boolean"/>
     </declare-styleable>
 </resources>

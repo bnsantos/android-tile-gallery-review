@@ -13,20 +13,19 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends ActionBarActivity {
-    private GalleryTilePreview mMediaPreview1;
-    private GalleryTilePreview mMediaPreview2;
-    private GalleryTilePreview mMediaPreview3;
-    private GalleryTilePreview mMediaPreview4;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mMediaPreview1 = (GalleryTilePreview) findViewById(R.id.mediaPreview1);
-        mMediaPreview2 = (GalleryTilePreview) findViewById(R.id.mediaPreview2);
-        mMediaPreview3 = (GalleryTilePreview) findViewById(R.id.mediaPreview3);
-        mMediaPreview4 = (GalleryTilePreview) findViewById(R.id.mediaPreview4);
+        GalleryTilePreview mMediaPreview1 = (GalleryTilePreview) findViewById(R.id.mediaPreview1);
+        GalleryTilePreview mMediaPreview2 = (GalleryTilePreview) findViewById(R.id.mediaPreview2);
+        GalleryTilePreview mMediaPreview3 = (GalleryTilePreview) findViewById(R.id.mediaPreview3);
+        GalleryTilePreview mMediaPreview4 = (GalleryTilePreview) findViewById(R.id.mediaPreview4);
+        GalleryTilePreview mMediaPreview5 = (GalleryTilePreview) findViewById(R.id.mediaPreview5);
+        GalleryTilePreview mMediaPreview6 = (GalleryTilePreview) findViewById(R.id.mediaPreview6);
+        GalleryTilePreview mMediaPreview7 = (GalleryTilePreview) findViewById(R.id.mediaPreview7);
+        GalleryTilePreview mMediaPreview8 = (GalleryTilePreview) findViewById(R.id.mediaPreview8);
 
         List<String> pictures = Arrays.asList(getResources().getStringArray(R.array.pictures));
         Random random = new Random(System.currentTimeMillis());
@@ -38,6 +37,14 @@ public class MainActivity extends ActionBarActivity {
         mMediaPreview3.loadFromString(pictures);
         Collections.shuffle(pictures, random);
         mMediaPreview4.loadFromString(pictures);
+        Collections.shuffle(pictures, random);
+        mMediaPreview5.loadFromString(pictures);
+        Collections.shuffle(pictures, random);
+        mMediaPreview6.loadFromString(pictures);
+        Collections.shuffle(pictures, random);
+        mMediaPreview7.loadFromString(pictures);
+        Collections.shuffle(pictures, random);
+        mMediaPreview8.loadFromString(pictures);
     }
 
     @Override

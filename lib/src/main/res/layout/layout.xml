@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.5"
         android:orientation="vertical">
+
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/media11"
             android:layout_width="match_parent"
@@ -23,18 +24,35 @@
             fresco:progressBarAutoRotateInterval="1000"
             fresco:failureImage="@android:color/holo_red_dark"/>
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/media21"
+        <RelativeLayout
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            fresco:fadeDuration="300"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImageScaleType="fitCenter"
-            fresco:progressBarImage="@mipmap/spinner"
-            fresco:progressBarImageScaleType="centerInside"
-            fresco:progressBarAutoRotateInterval="1000"
-            fresco:failureImage="@android:color/holo_red_dark"/>
+            android:layout_weight="0.5">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/media21"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                fresco:fadeDuration="300"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImageScaleType="fitCenter"
+                fresco:progressBarImage="@mipmap/spinner"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:failureImage="@android:color/holo_red_dark"/>
+
+            <TextView
+                android:id="@+id/mask1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/font_size"
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"
+                android:alpha="0.6"
+                android:visibility="gone"/>
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -42,8 +60,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
-        android:orientation="vertical"
-        android:background="@android:color/holo_green_light">
+        android:orientation="vertical">
+
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/media12"
             android:layout_width="match_parent"
@@ -57,17 +75,34 @@
             fresco:progressBarAutoRotateInterval="1000"
             fresco:failureImage="@android:color/holo_red_dark"/>
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/media22"
+        <RelativeLayout
+            android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
-            fresco:fadeDuration="300"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImageScaleType="fitCenter"
-            fresco:progressBarImage="@mipmap/spinner"
-            fresco:progressBarImageScaleType="centerInside"
-            fresco:progressBarAutoRotateInterval="1000"
-            fresco:failureImage="@android:color/holo_red_dark"/>
+            android:layout_weight="0.5">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/media22"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                fresco:fadeDuration="300"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:placeholderImageScaleType="fitCenter"
+                fresco:progressBarImage="@mipmap/spinner"
+                fresco:progressBarImageScaleType="centerInside"
+                fresco:progressBarAutoRotateInterval="1000"
+                fresco:failureImage="@android:color/holo_red_dark"/>
+
+            <TextView
+                android:id="@+id/mask2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/font_size"
+                android:textColor="@android:color/white"
+                android:background="@android:color/black"
+                android:alpha="0.6"
+                android:visibility="gone"/>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
