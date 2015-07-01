@@ -3,7 +3,9 @@ package com.bnsantos.tile.gallery.lib;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -12,7 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.drawable.ProgressBarDrawable;
+import com.facebook.drawee.drawable.AutoRotateDrawable;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -24,13 +26,19 @@ import java.util.List;
 /**
  * Created by bruno on 11/06/15.
  */
-public class GalleryTilePreview extends RelativeLayout
-{
+public class GalleryTilePreview extends RelativeLayout{
     private final int MAX_TILES = 4;
 
     private int mTilesNumber;
     private boolean mShowAnimation;
     private boolean mShowMask;
+    private int mPlaceHolderImage = 0;
+    private int mFailureImage = 0;
+    private int mProgressBarImage = 0;
+    private int mProgressBarAutoRotateInterval = 0;
+
+    private int mWidth;
+    private int mHeight;
 
     private List<SimpleDraweeView> mSimpleDraweeViewList;
 
@@ -73,6 +81,11 @@ public class GalleryTilePreview extends RelativeLayout
             mShowMask = typedArray.getBoolean(R.styleable.GalleryTilePreview_showMask, false);
             mShowAnimation = typedArray.getBoolean(R.styleable.GalleryTilePreview_showAnimation, false);
             mSimpleDraweeViewList = new ArrayList<>();
+
+            mPlaceHolderImage = typedArray.getResourceId(R.styleable.GalleryTilePreview_placeholderRes, 0);
+            mFailureImage = typedArray.getResourceId(R.styleable.GalleryTilePreview_failureRes, 0);
+            mProgressBarImage = typedArray.getResourceId(R.styleable.GalleryTilePreview_progressBarRes, 0);
+            mProgressBarAutoRotateInterval = typedArray.getInteger(R.styleable.GalleryTilePreview_progressBarAutoRotateIntervalSeconds, 0);
         } finally {
             typedArray.recycle();
         }
@@ -95,17 +108,17 @@ public class GalleryTilePreview extends RelativeLayout
         addView(mMask);
     }
 
-    @SuppressWarnings("deprecation")
     private SimpleDraweeView initSimpleDraweeView(){
         GenericDraweeHierarchyBuilder gdhBuilder = new GenericDraweeHierarchyBuilder(getContext().getResources())
-                .setProgressBarImage(new ProgressBarDrawable())
                 .setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-            gdhBuilder = gdhBuilder.setPlaceholderImage(getContext().getResources().getDrawable(android.R.color.holo_blue_bright, getContext().getTheme()))
-                    .setFailureImage(getContext().getResources().getDrawable(android.R.color.holo_red_dark, getContext().getTheme()));
-        }else{
-            gdhBuilder = gdhBuilder.setPlaceholderImage(getContext().getResources().getDrawable(android.R.color.holo_blue_bright))
-                    .setFailureImage(getContext().getResources().getDrawable(android.R.color.holo_red_dark));
+        if(mPlaceHolderImage>0){
+            gdhBuilder = gdhBuilder.setPlaceholderImage(getDrawable(mPlaceHolderImage));
+        }
+        if(mFailureImage>0){
+            gdhBuilder = gdhBuilder.setFailureImage(getDrawable(mFailureImage));
+        }
+        if(mProgressBarImage>0){
+            gdhBuilder = gdhBuilder.setProgressBarImage(new AutoRotateDrawable(getDrawable(mProgressBarImage), mProgressBarAutoRotateInterval));
         }
         return new SimpleDraweeView(getContext(), gdhBuilder.build());
     }
@@ -121,13 +134,15 @@ public class GalleryTilePreview extends RelativeLayout
     @Override
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
-        updateViewsLayoutParams(w, h);
+        mWidth = w;
+        mHeight = h;
+        updateViewsLayoutParams();
 
     }
 
-    private void updateViewsLayoutParams(int w, int h){
+    private void updateViewsLayoutParams(){
         for(int i=0;i<mSimpleDraweeViewList.size();i++){
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(tileWidth(w), tileHeight(i, h));
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(tileWidth(mWidth), tileHeight(i, mHeight));
             layoutParams.addRule(tileRuleHorizontal(i));
             layoutParams.addRule(tileRuleVertical(i));
             mSimpleDraweeViewList.get(i).setLayoutParams(layoutParams);
@@ -216,5 +231,20 @@ public class GalleryTilePreview extends RelativeLayout
                 .setTapToRetryEnabled(true)
                 .build();
         view.setController(controller);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        updateViewsLayoutParams();
+    }
+
+    @SuppressWarnings("deprecation")
+    private Drawable getDrawable(int res){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            return getContext().getResources().getDrawable(res, getContext().getTheme());
+        }else{
+            return getContext().getResources().getDrawable(res);
+        }
     }
 }

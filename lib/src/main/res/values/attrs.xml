@@ -4,5 +4,9 @@
         <attr name="maxTiles" format="integer"/>
         <attr name="showMask" format="boolean"/>
         <attr name="showAnimation" format="boolean"/>
+        <attr name="placeholderRes" format="reference"/>
+        <attr name="failureRes" format="reference"/>
+        <attr name="progressBarRes" format="reference"/>
+        <attr name="progressBarAutoRotateIntervalSeconds" format="integer"/>
     </declare-styleable>
 </resources>

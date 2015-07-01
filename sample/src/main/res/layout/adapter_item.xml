@@ -4,13 +4,6 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/tileCount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="@dimen/small_margin"/>
-
     <com.bnsantos.tile.gallery.lib.GalleryTilePreview
         android:id="@+id/mediaPreview"
         android:layout_height="@dimen/media_preview_size"
@@ -19,7 +12,12 @@
         android:layout_marginRight="@dimen/m_margin"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
+        android:background="@android:color/transparent"
         app:maxTiles="4"
         app:showAnimation="true"
-        app:showMask="true"/>
+        app:showMask="true"
+        app:placeholderRes="@android:color/transparent"
+        app:failureRes="@android:color/holo_red_dark"
+        app:progressBarRes="@drawable/loading_circle"
+        app:progressBarAutoRotateIntervalSeconds="1000"/>
 </LinearLayout>
