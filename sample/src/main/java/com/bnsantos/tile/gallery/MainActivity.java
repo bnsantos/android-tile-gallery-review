@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
-import com.bnsantos.tile.gallery.lib.GalleryTilePreview;
-
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,33 +18,19 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GalleryTilePreview mMediaPreview1 = (GalleryTilePreview) findViewById(R.id.mediaPreview1);
-        GalleryTilePreview mMediaPreview2 = (GalleryTilePreview) findViewById(R.id.mediaPreview2);
-        GalleryTilePreview mMediaPreview3 = (GalleryTilePreview) findViewById(R.id.mediaPreview3);
-        GalleryTilePreview mMediaPreview4 = (GalleryTilePreview) findViewById(R.id.mediaPreview4);
-        GalleryTilePreview mMediaPreview5 = (GalleryTilePreview) findViewById(R.id.mediaPreview5);
-        GalleryTilePreview mMediaPreview6 = (GalleryTilePreview) findViewById(R.id.mediaPreview6);
-        GalleryTilePreview mMediaPreview7 = (GalleryTilePreview) findViewById(R.id.mediaPreview7);
-        GalleryTilePreview mMediaPreview8 = (GalleryTilePreview) findViewById(R.id.mediaPreview8);
+        ListView listView = (ListView) findViewById(R.id.listView);
 
+        List<Item> items = new ArrayList<>();
         List<String> pictures = Arrays.asList(getResources().getStringArray(R.array.pictures));
+
         Random random = new Random(System.currentTimeMillis());
-        Collections.shuffle(pictures, random);
-        mMediaPreview1.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview2.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview3.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview4.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview5.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview6.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview7.loadFromString(pictures);
-        Collections.shuffle(pictures, random);
-        mMediaPreview8.loadFromString(pictures);
+        int max = random.nextInt(100);
+        for(int i=0;i<max;i++){
+            Collections.shuffle(pictures, random);
+            items.add(new Item(pictures));
+        }
+
+        listView.setAdapter(new MyAdapter(this, items));
     }
 
     @Override
