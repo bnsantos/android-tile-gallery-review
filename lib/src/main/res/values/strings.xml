@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Lib</string>
+    <string name="invalid_param_exception">Files can\'t be null or greater than Max Tile</string>
 </resources>

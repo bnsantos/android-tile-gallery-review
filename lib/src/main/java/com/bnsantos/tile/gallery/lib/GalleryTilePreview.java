@@ -21,6 +21,7 @@ import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -215,8 +216,7 @@ public class GalleryTilePreview extends RelativeLayout{
 
     public void loadFromUri(List<Uri> files){
         if(files==null||files.size()<mTilesNumber){
-            //TODO throw exception
-            return;
+            throw new InvalidParameterException(getContext().getString(R.string.invalid_param_exception));
         }
         for(int i=0;i<mSimpleDraweeViewList.size();i++){
             setDraweePicture(mSimpleDraweeViewList.get(i), files.get(i));
