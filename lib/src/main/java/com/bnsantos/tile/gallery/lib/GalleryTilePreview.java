@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,6 +44,8 @@ public class GalleryTilePreview extends RelativeLayout{
     private List<SimpleDraweeView> mSimpleDraweeViewList;
 
     private TextView mMask;
+
+    private OnItemClickListener mItemClickListener;
 
     public GalleryTilePreview(Context context) {
         super(context);
@@ -146,6 +149,15 @@ public class GalleryTilePreview extends RelativeLayout{
             layoutParams.addRule(tileRuleHorizontal(i));
             layoutParams.addRule(tileRuleVertical(i));
             mSimpleDraweeViewList.get(i).setLayoutParams(layoutParams);
+            final int index = i;
+            mSimpleDraweeViewList.get(i).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mItemClickListener!=null){
+                        mItemClickListener.onClick(v, index==mSimpleDraweeViewList.size()-1, index);
+                    }
+                }
+            });
 
             if(i==mSimpleDraweeViewList.size()-1){
                 mMask.setLayoutParams(layoutParams);
@@ -246,5 +258,18 @@ public class GalleryTilePreview extends RelativeLayout{
         }else{
             return getContext().getResources().getDrawable(res);
         }
+    }
+
+    public void setItemClickListener(OnItemClickListener mItemClickListener) {
+        this.mItemClickListener = mItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        void onClick(View v, boolean clickedOnMask, int index);
     }
 }
